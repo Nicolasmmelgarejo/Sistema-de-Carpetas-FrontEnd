@@ -1,0 +1,22 @@
+input.ng-touched.ng-invalid{
+    border-color: #dc3545
+}
+input.ng-valid{
+    border-color: #28a745;
+}
+#toast-container > div {
+    opacity:1;
+}
+.html-header {
+    margin: 15px 0 5px;
+  }
+  
+  .html {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.5rem;
+    background-color: #f1f1f1;
+    min-height: 20px;
+    max-height: 10rem;
+    overflow: auto;
+  }

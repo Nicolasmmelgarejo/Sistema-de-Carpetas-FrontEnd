@@ -1,0 +1,21 @@
+<div class="container p-2">
+    <form [formGroup]="form" (ngSubmit)="editArchivo()" class="border border-dark">
+        <div class="row p-2">
+            <div class="col">
+                <label for="nombreArchivo" class="form-label">Nombre del Archivo</label>
+                <input type="text" class="form-control"  name="nombreArchivo" id="nombreArchivo" 
+                formControlName="nombreArchivo">
+            </div>
+        </div>
+        <div class="p-4 row">
+            <angular-editor formControlName="contenidoArchivo" [config]="config"></angular-editor>
+        </div>
+        <div class="row p-2">
+            <div class="col">
+                <div class="d-grid">
+                    <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Editar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

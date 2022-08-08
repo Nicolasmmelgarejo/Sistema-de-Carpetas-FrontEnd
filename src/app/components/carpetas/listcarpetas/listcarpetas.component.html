@@ -1,0 +1,185 @@
+<div class="flex-shrink-0 p-3 bg-white __web-inspector-hide-shortcut__" style="width: 350px;">
+  <a class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+    <svg class="bi pe-none me-2" width="30" height="24"></svg>
+    <span class="fs-5 fw-semibold">Carpetas</span>
+  </a>
+  <ul class="list-unstyled ps-0" *ngFor="let Carpeta of carpetaService.carpetasFiltradas">
+    <li class="mb-1">
+      <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapse" data-bs-toggle="collapse" [attr.data-bs-target]="'#' + Carpeta.nombreCarpeta.replace(' ','_')" aria-expanded="false">
+        {{Carpeta.nombreCarpeta}}
+      </button>
+      <button type="button" class="btn btn-default btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'"  (click)="editCar(Carpeta)">
+        <span class="material-symbols-outlined">
+            edit
+        </span>
+      </button>
+      <button type="button" class="btn btn-danger btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="deleteObject(Carpeta.id)">
+        <span class="material-symbols-outlined text-black">
+            delete
+        </span>
+      </button>
+      <div class="collapse" [attr.id]="Carpeta.nombreCarpeta.replace(' ','_')">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" *ngFor="let Archivo of Carpeta.archivos" style="left: 20px;">
+          <li><a role="button" class="link-dark d-inline-flex text-decoration-none rounded " (click)='mostarAr(Archivo)'>{{Archivo.nombreArchivo}}</a>
+            <button type="button" class="btn btn-default btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'"  (click)="editArchivo(Archivo)">
+              <span class="material-symbols-outlined">
+                  edit
+              </span>
+            </button>
+            <button type="button" class="btn btn-danger btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="deleteAr(Archivo.id)">
+              <span class="material-symbols-outlined text-black">
+                  delete
+              </span>
+            </button>
+          </li>       
+        </ul>
+        <div *ngFor="let CarpetaC of carpetaService.listCarpetas" >
+          <div *ngFor="let TablaCarpetas of Carpeta.tablaCarpetas" >
+            <div *ngIf="TablaCarpetas.carpetaId == CarpetaC.id" >
+              <button class="btn btn-toggle d-inline-flex small align-items-center rounded border-0 collapse "  data-bs-toggle="collapse" [attr.data-bs-target]="'#' + CarpetaC.nombreCarpeta.replace(' ','_')" aria-expanded="false"  style="left: 20px;">
+                {{CarpetaC.nombreCarpeta}}
+              </button>
+              <button type="button" class="btn btn-default btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'"  (click)="editCar(CarpetaC)" style="left: 20px;">
+                <span class="material-symbols-outlined">
+                    edit
+                </span>
+              </button>
+              <button type="button" class="btn btn-danger btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="deleteObject(CarpetaC.id)" style="left: 20px;">
+                <span class="material-symbols-outlined text-black">
+                    delete
+                </span>
+              </button>
+              <div class="collapse" [attr.id]="CarpetaC.nombreCarpeta.replace(' ','_')">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" *ngFor="let ArchivoC of CarpetaC.archivos" style="left: 40px;">
+                  <li><a role="button" class="link-dark d-inline-flex text-decoration-none rounded" (click)='mostarAr(ArchivoC)'>{{ArchivoC.nombreArchivo}}</a>
+                    <button type="button" class="btn btn-default btn-sm"  *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="editArchivo(ArchivoC)">
+                      <span class="material-symbols-outlined">
+                          edit
+                      </span>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="deleteAr(ArchivoC.id)">
+                      <span class="material-symbols-outlined text-black">
+                          delete
+                      </span>
+                    </button>
+                  </li>    
+                </ul>
+                <div class="collapse" [attr.id]="CarpetaC.nombreCarpeta.replace(' ','_')">
+                  <div *ngFor="let carpetaE of carpetaService.listCarpetas">
+                    <div *ngFor="let TablaCarpetasC of CarpetaC.tablaCarpetas">
+                      <div *ngIf="TablaCarpetasC.carpetaId == carpetaE.id">
+                        <button class="btn btn-toggle d-inline-flex small align-items-center rounded border-0 collapse"  data-bs-toggle="collapse" [attr.data-bs-target]="'#' + carpetaE.nombreCarpeta.replace(' ','_')" aria-expanded="false" style="left: 40px;">
+                          {{carpetaE.nombreCarpeta}}
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'"  (click)="editCar(carpetaE)" style="left: 40px;">
+                          <span class="material-symbols-outlined">
+                              edit
+                          </span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm"  *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="deleteObject(carpetaE.id)" style="left: 40px;">
+                          <span class="material-symbols-outlined text-black">
+                              delete
+                          </span>
+                        </button>
+                        <div class="collapse" [attr.id]="carpetaE.nombreCarpeta.replace(' ','_')">
+                          <ul  class="btn-toggle-nav list-unstyled fw-normal pb-1 small" *ngFor="let ArchivosE of carpetaE.archivos" style="left: 60px;" >
+                            <li><a  role="button" class="link-dark d-inline-flex text-decoration-none rounded" (click)='mostarAr(ArchivosE)'>{{ArchivosE.nombreArchivo}}</a>
+                              <button type="button" class="btn btn-default btn-sm"  *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="editArchivo(ArchivosE)">
+                                <span class="material-symbols-outlined">
+                                    edit
+                                </span>
+                              </button>
+                              <button type="button" class="btn btn-danger btn-sm"  *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="deleteAr(ArchivosE.id)">
+                                <span class="material-symbols-outlined text-black">
+                                    delete
+                                </span>
+                              </button>
+                            </li>         
+                          </ul>
+                          <div class="collapse" [attr.id]="CarpetaC.nombreCarpeta.replace(' ','_')">
+                            <div *ngFor="let carpetaX of carpetaService.listCarpetas">
+                              <div *ngFor="let TablaCarpetasX of carpetaE.tablaCarpetas">
+                                <div *ngIf="TablaCarpetasX.carpetaId == carpetaX.id">
+                                  <button class="btn btn-toggle d-inline-flex small align-items-center rounded border-0 collapse"  data-bs-toggle="collapse" [attr.data-bs-target]="'#' + carpetaX.nombreCarpeta.replace(' ','_')" aria-expanded="false" style="left: 60px;">
+                                    {{carpetaX.nombreCarpeta}}
+                                  </button>
+                                  <button type="button" class="btn btn-default btn-sm"  *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="editCar(carpetaX)" style="left: 60px;">
+                                    <span class="material-symbols-outlined">
+                                        edit
+                                    </span>
+                                  </button>
+                                  <button type="button" class="btn btn-danger btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="deleteObject(carpetaX.id)" style="left: 60px;">
+                                    <span class="material-symbols-outlined text-black">
+                                        delete
+                                    </span>
+                                  </button>
+                                  <div class="collapse" [attr.id]="carpetaX.nombreCarpeta.replace(' ','_')">
+                                    <ul  class="btn-toggle-nav list-unstyled fw-normal pb-1 small" *ngFor="let ArchivosX of carpetaX.archivos" style="left: 80px;" >
+                                      <li><a  role="button" class="link-dark d-inline-flex text-decoration-none rounded" (click)='mostarAr(ArchivosX)'>{{ArchivosX.nombreArchivo}}</a>
+                                        <button type="button" class="btn btn-default btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="editArchivo(ArchivosX)">
+                                          <span class="material-symbols-outlined">
+                                              edit
+                                          </span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="deleteAr(ArchivosX.id)">
+                                          <span class="material-symbols-outlined text-black">
+                                              delete
+                                          </span>
+                                        </button>
+                                      </li>         
+                                    </ul>
+                                    <div class="collapse" [attr.id]="carpetaX.nombreCarpeta.replace(' ','_')">
+                                      <div *ngFor="let carpetal of carpetaService.listCarpetas">
+                                        <div *ngFor="let TablaCarpetasl of carpetaX.tablaCarpetas">
+                                          <div *ngIf="TablaCarpetasl.carpetaId == carpetal.id">
+                                            <button class="btn btn-toggle d-inline-flex small align-items-center rounded border-0 collapse"  data-bs-toggle="collapse" [attr.data-bs-target]="'#' + carpetal.nombreCarpeta.replace(' ','_')" aria-expanded="false" style="left: 80px;">
+                                              {{carpetal.nombreCarpeta}}
+                                            </button>
+                                            <button type="button" class="btn btn-default btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="editCar(carpetal)" style="left: 80px;">
+                                              <span class="material-symbols-outlined">
+                                                  edit
+                                              </span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="deleteObject(carpetal.id)" style="left: 80px;">
+                                              <span class="material-symbols-outlined text-black">
+                                                  delete
+                                              </span>
+                                            </button>
+                                            <div class="collapse" [attr.id]="carpetal.nombreCarpeta.replace(' ','_')">
+                                              <ul  class="btn-toggle-nav list-unstyled fw-normal pb-1 small" *ngFor="let Archivosl of carpetal.archivos" style="left: 100px;" >
+                                                <li><a  role="button" class="link-dark d-inline-flex text-decoration-none rounded" (click)='mostarAr(Archivosl)'>{{Archivosl.nombreArchivo}}</a>
+                                                  <button type="button" class="btn btn-default btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="editArchivo(Archivosl)">
+                                                    <span class="material-symbols-outlined">
+                                                        edit
+                                                    </span>
+                                                  </button>
+                                                  <button type="button" class="btn btn-danger btn-sm" *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="deleteAr(Archivosl.id)">
+                                                    <span class="material-symbols-outlined text-black">
+                                                        delete
+                                                    </span>
+                                                  </button>
+                                                </li>         
+                                              </ul>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,34 @@
+<div class="container">
+    <app-header></app-header>
+    <div style="height: 5rem; border-width: 1px 0;"></div>
+</div>
+<div class="container p-2">
+    <form [formGroup]="form" (ngSubmit)="addCarpeta()" class="border border-dark">
+        <div class="row g-0">
+            <div class="col text-center p-2 mb-3 bg-light">
+                <span class="fs-3">Crear Carpeta</span>
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="col">
+                <label for="nobre_carpeta" class="form-label">Nombre de la Carpeta</label>
+                <input type="text" class="form-control"  name="User" id="nobre_carpeta" 
+                formControlName="nobre_carpeta">
+            </div>
+        </div>
+        <div class="p-2">
+            <select id="carpeta_contenerdora" class="form-control col form-select" formControlName="carpeta_contenerdora" required>
+                <option selected value="">Elegir Carpeta Contenedora</option>
+                <option value="principal">Sin Carpeta Contenedora</option>
+                <option *ngFor="let Carpeta of carpetaService.listCarpetas"  value={{Carpeta.nombreCarpeta}}>{{Carpeta.nombreCarpeta}}</option>
+            </select>
+        </div>
+        <div class="row p-2">
+            <div class="col">
+                <div class="d-grid">
+                    <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Agregar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,27 @@
+<div class="container">
+    <app-header></app-header>
+    <div style="height: 5rem; border-width: 1px 0;"></div>
+</div>
+<div class="container p-2">
+    <form [formGroup]="form" (ngSubmit)="editCarpeta()" class="border border-dark">
+        <div class="row g-0">
+            <div class="col text-center p-2 mb-3 bg-light">
+                <span class="fs-3">Editar Carpeta</span>
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="col">
+                <label for="nobre_carpeta" class="form-label">Nombre de la Carpeta</label>
+                <input type="text" class="form-control"  name="User" id="nobre_carpeta" 
+                formControlName="nobre_carpeta">
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="col">
+                <div class="d-grid">
+                    <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Editar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
