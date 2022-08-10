@@ -43,13 +43,12 @@ export class CarpetaService {
   getCarpetasO(){
     return this.http.get(this.myAppUrl+this.myApiUrl).subscribe(data=>{
       this.listCarpetas =data as Carperta[];
-      console.log(this.listCarpetas);
+      
 
       this.tablaServices.getTabla().subscribe(data=>{
         this.listTabla = data as TablaCarpetas[];
         this.tablaFiltrada= this.listTabla.filter((items) => items.nombreCarpeta == "principal");
-        console.log(this.listCarpetas);
-        console.log(this.tablaFiltrada);
+        
         this.carpetasFiltradas=[];
         for(var i =0;i<this.tablaFiltrada.length;i++){
           for(var j =0;j<this.listCarpetas.length;j++){
@@ -58,12 +57,12 @@ export class CarpetaService {
             }
           }
         }
-        console.log(this.carpetasFiltradas);
+        
       });
     });
   }
   carpetaEdit(id:number,carpeta:Carperta):Observable<Carperta>{
-    console.log(id,carpeta);
+    
     return this.http.put<Carperta>(this.myAppUrl+this.myApiUrl+id,carpeta);
   }
   traer(archivo:Documento){

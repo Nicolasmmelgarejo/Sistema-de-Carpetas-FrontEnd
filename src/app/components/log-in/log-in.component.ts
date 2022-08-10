@@ -14,7 +14,16 @@ import { CartaSurUser } from 'src/app/models/CartaSurUser';
 })
 export class LogInComponent implements OnInit {
   form: FormGroup;
-  
+  users:User[]=[];
+  userRole:string="";
+  actualUser:User={
+    idUser: 0,
+    userName: 'a',
+    userPassword:'fsa',
+    user_Roles:[]
+  };
+  user:User={};
+  userA:string="";
   constructor(private router:Router,
       private formBuilder:FormBuilder, 
       private userService:UserService,
@@ -47,7 +56,41 @@ export class LogInComponent implements OnInit {
         this.toastr.success('Acceso permitido.','Usuario Correcto');
         this.isUserValid=true;
         this.router.navigateByUrl('carpetas');
+        
+        this.userService.getUsers().subscribe(data=>{
+          this.users=data as User[];
+          for(var i =0;i<this.users.length;i++){
+            if(this.users[i].userName==localStorage.getItem("user")){
+              this.user=this.users[i];
+            }
+          }
+        });
         this.userService.setToken(data);
+        this.userService.getUser$().subscribe(data => {
+          this.actualUser=data as User;
+          if(this.actualUser==null){
+            this.actualUser={
+              idUser: 0,
+              userName: 'a',
+              userPassword:'fsa',
+              user_Roles:[user_Roles]
+            };
+          }
+          this.userA=this.actualUser.userName!;
+          localStorage.setItem("user",this.userA);
+          this.userRole = this.actualUser.user_Roles![0].userRole!;
+          localStorage.setItem("userRole",this.userRole);
+          
+        });
+        this.userService.getUsers().subscribe(data=>{
+          this.users=data as User[];
+          for(var i =0;i<this.users.length;i++){
+            if(this.users[i].userName==localStorage.getItem("user")){
+              this.user=this.users[i];
+              this.userRole = this.user.user_Roles![0].userRole!;
+            }
+          }
+        });
       },
       error: err=>{
         this.isUserValid=false;
@@ -55,7 +98,7 @@ export class LogInComponent implements OnInit {
         this.form.reset();
       }
     })
-    console.log(user);
+    
   }
   
 

@@ -9,9 +9,16 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  actualUser:User={};
+  actualUser:User={
+    idUser: 0,
+    userName: 'a',
+    userPassword:'fsa',
+    user_Roles:[]
+  };
   users:User[]=[];
   user:User={};
+  userRole:string="";
+  userA:string="";
   constructor(private router:Router,
               private userService:UserService) { }
   
@@ -21,24 +28,25 @@ export class HeaderComponent implements OnInit {
       for(var i =0;i<this.users.length;i++){
         if(this.users[i].userName==localStorage.getItem("user")){
           this.user=this.users[i];
+          this.userRole = this.user.user_Roles![0].userRole!;
         }
       }
-    });
-    this.userService.getUser$().subscribe(data => {
-      this.actualUser=data as User;
-      localStorage.setItem("user",this.actualUser.userName!);
-      console.log(this.actualUser);
-    });
-    const user = localStorage.getItem("user");
-    this.userService.getUsers().subscribe(data=>{
-      this.userService.usuario=data as User[];
-      console.log(this.userService.usuario);
-      for(var i = 0;i<this.userService.usuario.length;i++){
-        if(this.userService.usuario[i].userName==user){
-          this.actualUser = this.userService.usuario[i];
+      const user = localStorage.getItem("user");
+      this.userService.getUsers().subscribe(data=>{
+        this.userService.usuario=data as User[];
+        
+        for(var i = 0;i<this.userService.usuario.length;i++){
+          if(this.userService.usuario[i].userName==user){
+            this.actualUser = this.userService.usuario[i];
+            this.userA=this.actualUser.userName!;
+            this.userRole = this.actualUser.user_Roles![0].userRole!;
+            localStorage.setItem("userRole",this.userRole);
+          }
         }
-      }
+      });
     });
+    
+    
   }
   backLogin(){
     this.userService.removeToken();

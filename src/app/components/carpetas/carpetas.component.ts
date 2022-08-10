@@ -13,7 +13,7 @@ export class CarpetasComponent implements OnInit {
   ngOnInit(): void {
      this.carpetaService.switch$().subscribe(data=>{
       this.numero=data as number;
-      console.log(this.numero);
+      
      });
   }
 

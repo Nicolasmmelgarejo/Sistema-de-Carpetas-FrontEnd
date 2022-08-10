@@ -58,7 +58,7 @@ export class SingInComponent implements OnInit {
       user_Roles: this.listrole,
     }
     
-    console.log(user);
+    
     
     if(user.userPassword==this.form.get('rpwd')?.value){
       if(this.flag==true){
@@ -74,7 +74,7 @@ export class SingInComponent implements OnInit {
           },
           error: err=>{
             this.toastr.warning('El Usuario no fue agregado.','El usuario ya existe.');
-            console.log(user);
+            
           }
         });
       }else{

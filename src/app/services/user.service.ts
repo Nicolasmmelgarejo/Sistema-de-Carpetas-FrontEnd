@@ -2,9 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
-import { JwtHelperService } from "@auth0/angular-jwt";
-import { CartaSurUser } from '../models/CartaSurUser';
-import { UserDominio } from '../models/UserDominio';
+import { JwtHelperService } from "@auth0/angular-jwt"
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +10,7 @@ export class UserService {
   myAppUrl='https://localhost:7056/'
   myApiUrl='api/User/'
   private editar = new BehaviorSubject<User>({}as any);
+  private entre = new BehaviorSubject<any>({}as any);
   currentUser: BehaviorSubject<any> = new BehaviorSubject(null);
   actualUser:User={};
   usuario:User[]=[];
@@ -50,7 +49,10 @@ export class UserService {
   getUsers():Observable<User>{
     return this.http.get<User>(this.myAppUrl+this.myApiUrl);
   }
-
+  users:User[]=[];
+  user:User={};
+  userRole:string="";
+  
   validarUser(user:User):Observable<any>{
     return this.http.post(this.myAppUrl+this.myApiUrl+"validar",user,
       {
@@ -66,10 +68,10 @@ export class UserService {
   loadCurrentUser(){
     const token = localStorage.getItem("access_token");
     const userInfo = token  != null ? this.jwtHelperService.decodeToken(token) : null;
-    console.log(userInfo);
+    
     this.getUsers().subscribe(data=>{
       this.usuario=data as User[];
-      console.log(this.usuario);
+      
       for(var i = 0;i<this.usuario.length;i++){
         if(this.usuario[i].userName==userInfo.UserName){
           this.actualUser = this.usuario[i];
@@ -92,8 +94,15 @@ export class UserService {
   removeToken(){
     localStorage.removeItem("access_token");
     localStorage.removeItem("user");
+    localStorage.removeItem("admin");
   }
   deleteUser(id:number):Observable<User>{
     return this.http.delete<User>(this.myAppUrl+this.myApiUrl + id);
+  }
+  entro(number:number){
+    this.entre.next(number);
+  }
+  entro$():Observable<any>{
+    return this.entre.asObservable();
   }
 }

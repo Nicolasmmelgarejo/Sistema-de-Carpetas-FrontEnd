@@ -47,7 +47,7 @@ export class ListcarpetasComponent implements OnInit {
   mostarAr(archivo:Documento){
     this.carpetaService.traer(archivo);
     this.carpetaService.switch(2);
-    console.log("entre");
+    
   }
   editArchivo(archivo:Documento){
     this.carpetaService.traer(archivo);

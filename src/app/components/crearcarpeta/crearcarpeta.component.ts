@@ -51,7 +51,7 @@ export class CrearcarpetaComponent implements OnInit {
       archivos: this.listdoc,
       tablaCarpetas: this.listtabla,
     }
-    console.log(carpeta);
+    
   
       this.carpetaService.addCarpeta(carpeta).subscribe(
         {

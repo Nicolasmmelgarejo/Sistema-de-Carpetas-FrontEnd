@@ -23,7 +23,7 @@ export class CarpetascontenedorComponent implements OnInit {
       try{
         myContainer.innerHTML= this.archivo;
       }catch(e){
-        console.log("no problem");
+        console.log("Ok");
       }
       
     });

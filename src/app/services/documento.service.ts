@@ -21,14 +21,14 @@ export class DocumentoService {
   getDocumento(){
     return this.http.get(this.myAppUrl+this.myApiUrl).subscribe(data=>{
       this.list = data as Documento[];
-      console.log(this.list);   
+        
     });
   }
   getDocumentosO():Observable<Documento>{
     return this.http.get(this.myAppUrl+this.myApiUrl);
   }
   editArchivo(id:number,documento:Documento):Observable<Documento>{
-    console.log(id,documento);
+    
     return this.http.put<Documento>(this.myAppUrl+this.myApiUrl+id,documento);
     
   }

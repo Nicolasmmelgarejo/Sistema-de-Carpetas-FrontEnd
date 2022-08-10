@@ -8,9 +8,9 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link" role="button" *ngIf="user.user_Roles![0].userRole == 'admin'" (click)="verC()">Ver Carpetas</a>
+          <a class="nav-link" role="button" *ngIf="userRole == 'admin'" (click)="verC()">Ver Carpetas</a>
         </li>
-        <li class="nav-item dropdown" *ngIf="user.user_Roles![0].userRole == 'admin'">
+        <li class="nav-item dropdown" *ngIf="userRole == 'admin'">
           <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Herramientas
           </a>
@@ -27,13 +27,13 @@
       <ul class="d-flex navbar-nav" role="button" style="position: relative; width: 150px;">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="fa fa-user-circle"></span>
-            {{actualUser.userName}}
+            {{userA}}
           </a>
           <ul class="dropdown-menu">
             <li class="nav-item">
-              <a class="nav-link" role="button" *ngIf="user.user_Roles![0].userRole == 'admin'" (click)='verU()'>Ver Usuarios</a>
+              <a class="nav-link" role="button" *ngIf="userRole == 'admin'" (click)='verU()'>Ver Usuarios</a>
             </li>
-            <li><hr class="dropdown-divider" *ngIf="user.user_Roles![0].userRole == 'admin'"></li>
+            <li><hr class="dropdown-divider" *ngIf="userRole == 'admin'"></li>
             <li class="nav-item">
               <a class="nav-link" role="button" (click)='backLogin()'>Cerrar Sesion</a>
             </li>
