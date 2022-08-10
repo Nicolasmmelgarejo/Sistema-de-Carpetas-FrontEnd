@@ -16,13 +16,16 @@ export class VistausuariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe(data=>{
-      this.userList=data as User[];
+      const fuserList=data as User[];
+      this.userList = fuserList.filter((item) => item.userName !== localStorage.getItem("user"));
     });
   }
   deleteUser(id:number){
     this.userService.deleteUser(id).subscribe(data=>{
       this.userService.getUsers().subscribe(data=>{
-        this.userList=data as User[];
+        const fuserList=data as User[];
+        this.userList = fuserList.filter((item) => item.userName !== localStorage.getItem("user"));
+        
       });
     });
   }
