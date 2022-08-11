@@ -1,13 +1,8 @@
-
-.html-header {
-    margin: 15px 0 5px;
-  }
-  .html {
+.html {
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 0.5rem;
     background-color: #f1f1f1;
     min-height: 20px;
-    max-height: 80rem;
     overflow: auto;
   }

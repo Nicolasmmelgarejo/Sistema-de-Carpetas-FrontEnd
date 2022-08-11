@@ -33,7 +33,7 @@ export class CrearcarpetaComponent implements OnInit {
   }
   carpetas:Carperta[]=[];
   ngOnInit(): void {
-    this.carpetaService.getCarpetasO();
+    this.carpetaService.getCarpetasPer();
   }
   addCarpeta(){
     const document:Documento = {
@@ -57,7 +57,7 @@ export class CrearcarpetaComponent implements OnInit {
         {
         next:data=>{
           this.toastr.success('La Carpeta fue agregada.','Ya esta en su ubicacion.');
-          this.carpetaService.getCarpetasO();
+          this.carpetaService.getCarpetasPer();
           this.form.reset();
         },
         error: err=>{

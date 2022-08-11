@@ -37,6 +37,13 @@ export class CarpetaService {
       this.list = data as Carperta[]; 
     });
   }
+  per:Carperta[]=[];
+  getCarpetasPer(){
+    return this.http.get(this.myAppUrl+this.myApiUrl+'carpetaPer').subscribe(data=>{
+      this.per = data as Carperta[]; 
+    });
+  }
+  
   carpetas:Carperta[]=[];
 
 

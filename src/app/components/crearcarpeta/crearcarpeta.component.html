@@ -1,7 +1,3 @@
-<div class="container">
-    <app-header></app-header>
-    <div style="height: 5rem; border-width: 1px 0;"></div>
-</div>
 <div class="container p-2">
     <form [formGroup]="form" (ngSubmit)="addCarpeta()" class="border border-dark">
         <div class="row g-0">
@@ -20,7 +16,7 @@
             <select id="carpeta_contenerdora" class="form-control col form-select" formControlName="carpeta_contenerdora" required>
                 <option selected value="">Elegir Carpeta Contenedora</option>
                 <option value="principal">Sin Carpeta Contenedora</option>
-                <option *ngFor="let Carpeta of carpetaService.listCarpetas"  value={{Carpeta.nombreCarpeta}}>{{Carpeta.nombreCarpeta}}</option>
+                <option *ngFor="let Carpeta of carpetaService.per"  value={{Carpeta.nombreCarpeta}}>{{Carpeta.nombreCarpeta}}</option>
             </select>
         </div>
         <div class="row p-2">

@@ -24,6 +24,7 @@ export class LogInComponent implements OnInit {
   };
   user:User={};
   userA:string="";
+  newFlag:boolean=false;
   constructor(private router:Router,
       private formBuilder:FormBuilder, 
       private userService:UserService,
@@ -41,16 +42,32 @@ export class LogInComponent implements OnInit {
   isUserValid:boolean=false;
   listrole:User_Role[]=[];
   private list:any[]=[];
-  logIn(){
+  async logIn(){
+  
     const user_Roles:User_Role = {
       userRole: 'dsasf',
     }
     this.listrole = [user_Roles];
-    const user:User={
+    var user:User={
       userName: this.form.get('user')?.value,
       userPassword: this.form.get('pwd')?.value,
       user_Roles: this.listrole,
     }
+    var newUser_Roles:User_Role = {
+      userRole: 'normal',
+    }
+    this.listrole = [newUser_Roles];
+    var newUser:User={
+      userName: this.form.get('user')?.value,
+      userPassword: '12345678',
+      user_Roles: this.listrole,
+    }
+    debugger;
+    await this.userService.addUser(newUser).toPromise().catch((e) => {this.newFlag=true;});
+    if(!this.newFlag){
+      user=newUser;
+    }
+    this.newFlag=false;
     this.userService.validarUser(user).subscribe({
       next:data=>{
         this.toastr.success('Acceso permitido.','Usuario Correcto');
@@ -97,7 +114,7 @@ export class LogInComponent implements OnInit {
         this.toastr.warning('Acceso denegado.','Usuario o Contraseña incorrecto');
         this.form.reset();
       }
-    })
+    });
     
   }
   
