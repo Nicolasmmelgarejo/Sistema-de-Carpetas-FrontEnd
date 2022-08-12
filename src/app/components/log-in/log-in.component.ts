@@ -62,7 +62,7 @@ export class LogInComponent implements OnInit {
       userPassword: '12345678',
       user_Roles: this.listrole,
     }
-    debugger;
+    
     await this.userService.addUser(newUser).toPromise().catch((e) => {this.newFlag=true;});
     if(!this.newFlag){
       user=newUser;
@@ -108,6 +108,7 @@ export class LogInComponent implements OnInit {
             }
           }
         });
+        this.userService.otro(1);
       },
       error: err=>{
         this.isUserValid=false;

@@ -4,7 +4,6 @@
         <thead>
             <tr>
                 <th>Nombre de Usuario</th>
-                <th>Contraseña</th>
                 <th>Rol del Usuario</th>
                 <th></th>
                 <th></th>
@@ -14,9 +13,6 @@
             <tr *ngFor="let Users of userList">
                 <td>
                     <input type="text" value="{{Users.userName}}" disabled>                
-                </td>
-                <td>
-                    <input type="password" value="{{Users.userPassword}}" disabled>                
                 </td>
                 <td class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">

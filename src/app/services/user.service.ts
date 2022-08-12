@@ -11,6 +11,7 @@ export class UserService {
   myApiUrl='api/User/'
   private editar = new BehaviorSubject<User>({}as any);
   private entre = new BehaviorSubject<any>({}as any);
+  private nuevo = new BehaviorSubject<any>({}as any);
   currentUser: BehaviorSubject<any> = new BehaviorSubject(null);
   actualUser:User={};
   usuario:User[]=[];
@@ -94,7 +95,7 @@ export class UserService {
   removeToken(){
     localStorage.removeItem("access_token");
     localStorage.removeItem("user");
-    localStorage.removeItem("admin");
+    localStorage.removeItem("userRole");
   }
   deleteUser(id:number):Observable<User>{
     return this.http.delete<User>(this.myAppUrl+this.myApiUrl + id);
@@ -105,4 +106,11 @@ export class UserService {
   entro$():Observable<any>{
     return this.entre.asObservable();
   }
+  otro(number:number){
+    this.nuevo.next(number);
+  }
+  otro$(){
+    return this.nuevo.asObservable();
+  }
+  
 }

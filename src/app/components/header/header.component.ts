@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { User_Role } from 'src/app/models/user_role';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -19,10 +20,34 @@ export class HeaderComponent implements OnInit {
   user:User={};
   userRole:string="";
   userA:string="";
-  constructor(private router:Router,
-              private userService:UserService) { }
+  constructor(public router:Router,
+              public userService:UserService) { }
   
   ngOnInit(): void {
+    this.userService.otro$().subscribe(data => {
+      this.userService.getUsers().subscribe(data=>{
+        this.users=data as User[];
+        for(var i =0;i<this.users.length;i++){
+          if(this.users[i].userName==localStorage.getItem("user")){
+            this.user=this.users[i];
+            this.userRole = this.user.user_Roles![0].userRole!;
+          }
+        }
+        const user = localStorage.getItem("user");
+        this.userService.getUsers().subscribe(data=>{
+          this.userService.usuario=data as User[];
+          
+          for(var i = 0;i<this.userService.usuario.length;i++){
+            if(this.userService.usuario[i].userName==user){
+              this.actualUser = this.userService.usuario[i];
+              this.userA=this.actualUser.userName!;
+              this.userRole = this.actualUser.user_Roles![0].userRole!;
+              localStorage.setItem("userRole",this.userRole);
+            }
+          }
+        });
+      });
+    });
     this.userService.getUsers().subscribe(data=>{
       this.users=data as User[];
       for(var i =0;i<this.users.length;i++){
