@@ -5,7 +5,6 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { User_Role } from 'src/app/models/user_role';
 import { Router } from '@angular/router';
-import { CartaSurUser } from 'src/app/models/CartaSurUser';
 
 @Component({
   selector: 'app-log-in',

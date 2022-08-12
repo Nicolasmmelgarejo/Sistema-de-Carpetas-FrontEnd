@@ -65,17 +65,31 @@ export class SingInComponent implements OnInit {
         user.idUser=this.userEdit.idUser;
         this.userService.editComplete(user.idUser!,user).subscribe({
           
-          next:data=>{
-            this.toastr.success('El Usuario fue Editado.','Ya esta en su ubicacion.');
-            this.form.reset();
-            this.router.navigateByUrl('verusuarios');
-            this.flag==false;
-            this.form.reset();
-          },
-          error: err=>{
-            this.toastr.warning('El Usuario no fue agregado.','El usuario ya existe.');
+            next:data=>{
+              this.toastr.success('El Usuario fue Editado.','Ya esta en su ubicacion.');
+              this.form.reset();
+              this.router.navigateByUrl('verusuarios');
+              this.flag==false;
+              this.form.reset();
+            },
+            error: err=>{
+              user.idUser=this.userEdit.idUser;
+              this.userService.editComplete(user.idUser!,user).subscribe({
             
-          }
+                next:data=>{
+                  this.toastr.success('El Usuario fue Editado.','Ya esta en su ubicacion.');
+                  this.form.reset();
+                  this.router.navigateByUrl('verusuarios');
+                  this.flag==false;
+                  this.form.reset();
+                },
+                error: err=>{
+                  this.toastr.warning('El Usuario no fue agregado.','El usuario ya existe.');
+                  
+                }
+              });
+            
+            }
         });
       }else{
         this.userService.addUser(user).subscribe({

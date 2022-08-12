@@ -70,8 +70,6 @@ export class HeaderComponent implements OnInit {
         }
       });
     });
-    
-    
   }
   backLogin(){
     this.userService.removeToken();
